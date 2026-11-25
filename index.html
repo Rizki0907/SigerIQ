@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="SigerIQ adalah dasbor intelijen pertumbuhan UMKM digital Provinsi Lampung berbasis Hybrid Ordinal Probit dan GBDT oleh Tim ditantang habib UNESA."
+    />
+    <title>SigerIQ: Intelijen Pertumbuhan UMKM Digital Provinsi Lampung</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="#top" class="brand-link" aria-label="SigerIQ Beranda">
+          <img src="assets/logo_sigeriq.jpg" alt="Logo SigerIQ" class="brand-logo" />
+        </a>
+        <nav class="nav-links" aria-label="Navigasi utama">
+          <a href="#simulasi">Simulasi kebijakan</a>
+          <a href="#wilayah">Prioritas 15 wilayah</a>
+          <a href="#evaluasi">Benchmark model</a>
+          <a href="#galeri">Figur riset</a>
+        </nav>
+        <a href="assets/data/ditantang_habib.csv" download class="btn btn-primary">Unduh CSV prediksi</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero-section">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <h1>Prioritas pendampingan UMKM digital Lampung berbasis bukti</h1>
+            <p class="hero-lead">
+              Arsitektur Hybrid Ordinal Probit dan GBDT memetakan risiko penurunan 7.000 UMKM di 15 kabupaten/kota dengan akurasi terkalibrasi.
+            </p>
+            <div class="hero-actions">
+              <a href="#simulasi" class="btn btn-primary">Uji skenario intervensi</a>
+              <a href="#wilayah" class="link-action">Lihat 15 kabupaten/kota</a>
+            </div>
+            <div class="kpi-strip">
+              <div class="kpi-item">
+                <div class="kpi-value kpi-value-accent">0,6756</div>
+                <div class="kpi-label">Nested-CV Macro F1</div>
+              </div>
+              <div class="kpi-item">
+                <div class="kpi-value">0,6619</div>
+                <div class="kpi-label">Holdout Macro F1</div>
+              </div>
+              <div class="kpi-item">
+                <div class="kpi-value">97,72%</div>
+                <div class="kpi-label">Error kelas bertetangga</div>
+              </div>
+              <div class="kpi-item">
+                <div class="kpi-value kpi-value-growth">93,67%</div>
+                <div class="kpi-label">UMKM naik kelas (Boost)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-panel" aria-label="Simulator profil UMKM langsung">
+            <div class="sim-header">
+              <h2>Simulator prediksi status UMKM</h2>
+              <span class="sim-sub">Koefisien 10-Fold Ordinal Probit</span>
+            </div>
+            <div class="sim-controls">
+              <div class="control-group full-span">
+                <div class="control-label-row">
+                  <label for="sim-literasi">Skor literasi digital</label>
+                  <span id="val-literasi" class="control-val">54 / 100</span>
+                </div>
+                <input id="sim-literasi" class="sim-range" type="range" min="10" max="95" step="1" value="54" />
+              </div>
+
+              <div class="control-group">
+                <label for="sim-internet" class="control-label-row">Kualitas internet</label>
+                <select id="sim-internet" class="sim-select">
+                  <option value="Rendah">Rendah</option>
+                  <option value="Sedang" selected>Sedang</option>
+                  <option value="Tinggi">Tinggi</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <label for="sim-bayar" class="control-label-row">Metode pembayaran</label>
+                <select id="sim-bayar" class="sim-select">
+                  <option value="Tunai saja">Tunai saja</option>
+                  <option value="QRIS" selected>QRIS</option>
+                  <option value="Multi-kanal">Multi-kanal</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <label for="sim-pelatihan" class="control-label-row">Pelatihan digital</label>
+                <select id="sim-pelatihan" class="sim-select">
+                  <option value="Tidak">Belum pernah</option>
+                  <option value="Ya" selected>Pernah ikut</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <div class="control-label-row">
+                  <label for="sim-platform">Platform aktif</label>
+                  <span id="val-platform" class="control-val">2 platform</span>
+                </div>
+                <input id="sim-platform" class="sim-range" type="range" min="0" max="5" step="1" value="2" />
+              </div>
+
+              <div class="control-group full-span">
+                <div class="control-label-row">
+                  <label for="sim-rating">Rating pelanggan rata-rata</label>
+                  <span id="val-rating" class="control-val">4.1 / 5.0</span>
+                </div>
+                <input id="sim-rating" class="sim-range" type="range" min="2.5" max="5.0" step="0.1" value="4.1" />
+              </div>
+            </div>
+
+            <div class="sim-output" aria-live="polite">
+              <div class="sim-verdict-row">
+                <span class="verdict-title">Prediksi status (ambang ordinal c0=0,604; c1=1,401)</span>
+                <span id="sim-verdict" class="verdict-badge verdict-stabil">Stabil</span>
+              </div>
+              <div class="prob-bars">
+                <div class="prob-row">
+                  <span>Menurun</span>
+                  <div class="prob-track"><div id="bar-menurun" class="prob-fill fill-risk"></div></div>
+                  <span id="pct-menurun" class="prob-pct">0.0%</span>
+                </div>
+                <div class="prob-row">
+                  <span>Stabil</span>
+                  <div class="prob-track"><div id="bar-stabil" class="prob-fill fill-warn"></div></div>
+                  <span id="pct-stabil" class="prob-pct">0.0%</span>
+                </div>
+                <div class="prob-row">
+                  <span>Tumbuh</span>
+                  <div class="prob-track"><div id="bar-tumbuh" class="prob-fill fill-growth"></div></div>
+                  <span id="pct-tumbuh" class="prob-pct">0.0%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="simulasi" class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Simulasi kebijakan What-If pada 1.453 UMKM berisiko</h2>
+              <p class="section-desc">
+                Pilih satu skenario intervensi untuk melihat dampak empiris pada kohort UMKM yang diprediksi menurun di Provinsi Lampung.
+              </p>
+            </div>
+          </div>
+          <div class="policy-grid">
+            <div id="scenario-list" class="scenario-list" role="group" aria-label="Daftar skenario kebijakan"></div>
+            <div class="policy-detail" aria-live="polite">
+              <h3 id="policy-title">Paket terpadu Lampung Digital Boost</h3>
+              <p id="policy-summary"></p>
+              <div class="impact-metrics">
+                <div>
+                  <div id="policy-naik" class="impact-num impact-num-green">93.67%</div>
+                  <div class="impact-caption">Keluar dari status Menurun</div>
+                </div>
+                <div>
+                  <div id="policy-tumbuh" class="impact-num">11.29%</div>
+                  <div class="impact-caption">Melompat langsung ke Tumbuh</div>
+                </div>
+                <div>
+                  <div id="policy-turun" class="impact-num">-54.51 pp</div>
+                  <div class="impact-caption">Penurunan risiko rata-rata</div>
+                </div>
+              </div>
+              <a href="assets/data/policy_whatif_simulation.csv" download class="btn btn-secondary">Unduh data simulasi CSV</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="wilayah" class="section section-surface">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Peta prioritas 15 kabupaten/kota Provinsi Lampung</h2>
+              <p class="section-desc">
+                Seluruh 30 variasi penulisan lokasi telah dinormalisasi menjadi 15 wilayah resmi, diurutkan dari rata-rata risiko penurunan tertinggi.
+              </p>
+            </div>
+            <div class="controls-bar">
+              <input id="regency-search" type="search" class="filter-input" placeholder="Cari kabupaten atau kota..." aria-label="Cari kabupaten atau kota" />
+              <div class="tab-bar" role="tablist" aria-label="Filter prioritas wilayah">
+                <button type="button" class="tab-btn" data-tier="all" role="tab" aria-selected="true">Semua (15)</button>
+                <button type="button" class="tab-btn" data-tier="Prioritas utama" role="tab" aria-selected="false">Prioritas utama</button>
+                <button type="button" class="tab-btn" data-tier="Pantauan aktif" role="tab" aria-selected="false">Pantauan aktif</button>
+                <button type="button" class="tab-btn" data-tier="Hub tumbuh" role="tab" aria-selected="false">Hub tumbuh</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Kabupaten / Kota</th>
+                  <th>Kategori prioritas</th>
+                  <th>Jumlah UMKM</th>
+                  <th>Rata-rata risiko Menurun</th>
+                  <th>Skor literasi</th>
+                  <th>Internet rendah</th>
+                  <th>Tunai saja</th>
+                </tr>
+              </thead>
+              <tbody id="regency-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="evaluasi" class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Benchmark 12 model dan studi ablasi bebas kebocoran</h2>
+              <p class="section-desc">
+                Validasi ketat 10-Fold Nested Stratified CV pada 5.600 data latih, dengan partisi holdout 1.400 baris terkunci hingga evaluasi akhir.
+              </p>
+            </div>
+            <div class="tab-bar" role="tablist" aria-label="Pilih tabel evaluasi">
+              <button type="button" class="tab-btn" data-bench="models" role="tab" aria-selected="true">Perbandingan 12 model</button>
+              <button type="button" class="tab-btn" data-bench="ablation" role="tab" aria-selected="false">Studi ablasi 7 tahap</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead id="bench-thead"></thead>
+              <tbody id="bench-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="galeri" class="section section-surface">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Galeri 8 figur publikasi 300 DPI</h2>
+              <p class="section-desc">
+                Seluruh visualisasi diekspor langsung dari notebook final SigerIQ. Klik grafik mana pun untuk memperbesar saat presentasi atau tanya jawab.
+              </p>
+            </div>
+            <div class="tab-bar" role="tablist" aria-label="Filter kategori grafik">
+              <button type="button" class="tab-btn" data-fig="all" role="tab" aria-selected="true">Semua (8)</button>
+              <button type="button" class="tab-btn" data-fig="eda" role="tab" aria-selected="false">EDA dan data</button>
+              <button type="button" class="tab-btn" data-fig="model" role="tab" aria-selected="false">Ablasi dan CV</button>
+              <button type="button" class="tab-btn" data-fig="xai" role="tab" aria-selected="false">Holdout dan XAI</button>
+            </div>
+          </div>
+          <div id="figure-grid" class="figure-grid"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Penyelarasan dampak SDGs untuk Provinsi Lampung</h2>
+              <p class="section-desc">
+                Rekomendasi operasional dari model SigerIQ selaras dengan empat pilar Tujuan Pembangunan Berkelanjutan.
+              </p>
+            </div>
+          </div>
+          <div class="sdg-grid">
+            <div class="sdg-item">
+              <h3>SDG 8: Pertumbuhan ekonomi</h3>
+              <p>Menargetkan pendampingan tepat sasaran kepada 1.453 UMKM berisiko turun agar menjaga ketahanan omzet daerah.</p>
+            </div>
+            <div class="sdg-item">
+              <h3>SDG 9: Infrastruktur digital</h3>
+              <p>Memetakan wilayah dengan internet rendah di atas 48% seperti Pesisir Barat, Lampung Barat, dan Tulang Bawang.</p>
+            </div>
+            <div class="sdg-item">
+              <h3>SDG 10: Pengurangan kesenjangan</h3>
+              <p>Menutup jarak pertumbuhan antara hub Bandar Lampung dan Metro terhadap delapan kabupaten periferal.</p>
+            </div>
+            <div class="sdg-item">
+              <h3>SDG 17: Kemitraan berbasis data</h3>
+              <p>Menyediakan artefak terbuka bagi Pemda Lampung, penyedia QRIS, dan lembaga pelatihan literasi digital.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-meta">
+          <h2>SigerIQ: Tim ditantang habib (GEMATIK VI 2026)</h2>
+          <p>
+            Rizki Piji Fathoni (24031554029) dan Rahmawati Dian Pratiwi (24031554183), Program Studi S1 Sains Data, FMIPA, Universitas Negeri Surabaya.
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="assets/data/ditantang_habib.csv" download>Submission CSV</a>
+          <a href="assets/data/lampung_kabupaten_priority.csv" download>Data 15 Wilayah</a>
+          <a href="assets/data/model_comparison_10fold_cv.csv" download>Benchmark CV</a>
+          <a href="https://github.com/Rizki0907/SigerIQ" target="_blank" rel="noopener noreferrer">Repositori GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" hidden>
+      <div class="lightbox-dialog">
+        <div class="lightbox-top">
+          <h3 id="lightbox-title">Pratinjau grafik</h3>
+          <button id="lightbox-close" type="button" class="btn btn-secondary">Tutup</button>
+        </div>
+        <img id="lightbox-img" src="assets/figures/08_policy_priority_matrix.png" alt="Pratinjau grafik SigerIQ" />
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
